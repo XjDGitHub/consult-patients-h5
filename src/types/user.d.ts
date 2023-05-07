@@ -1,4 +1,4 @@
-export type user = {
+export type User = {
   //   id: string
   //   token: string
   //   account: string
@@ -15,3 +15,6 @@ export type user = {
   /** 头像 */
   avatar: string
 }
+
+// 短信验证码类型
+export type CodeType = 'login' | 'register' | 'changeMobile' | 'forgetPassword' | 'bindMobile'

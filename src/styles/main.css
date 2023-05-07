@@ -1,5 +1,3 @@
-// 项目公告样式
-// 项目所需颜色变量
 :root {
   --cp-primary: #16c2a3;
   --cp-plain: #eaf8f6;
@@ -14,23 +12,21 @@
   --cp-line: #ededed;
   --cp-bg: #f6f7f9;
   --cp-price: #eb5757;
-  //   覆盖vant主题色
   --van-primary-color: var(--cp-primary);
-  // 单元格上下间距
   --van-cell-vertical-padding: 14px;
-  // 复选框大小
   --van-checkbox-size: 14px;
-  // 默认按钮文字大小
   --van-button-normal-font-size: 16px;
 }
-// 全局样式
+
 body {
   font-size: 14px;
   color: var(--cp-text1);
 }
+
 a {
   color: var(--cp-text2);
 }
+
 h1,
 h2,
 h3,

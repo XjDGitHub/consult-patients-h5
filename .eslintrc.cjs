@@ -20,7 +20,7 @@ module.exports = {
         semi: false,
         printWidth: 80,
         trailingComma: 'none',
-        endOfLine: 'auto'
+        endOfLine: '\r\n'
       }
     ],
     'vue/multi-word-component-names': [
