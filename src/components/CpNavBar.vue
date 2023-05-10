@@ -14,9 +14,10 @@
 import { useRouter } from 'vue-router'
 
 // props 外界传入的变量
-defineProps<{
+const props = defineProps<{
   title?: string
-  rightText: string
+  rightText?: string
+  back?: () => void
 }>()
 // 组件自定义事件
 const emit = defineEmits<{
@@ -24,6 +25,9 @@ const emit = defineEmits<{
 }>()
 const router = useRouter()
 const onClickLeft = () => {
+  if (props.back) {
+    return props.back()
+  }
   // 此时会有一个问题，如果直接用地址栏访问，那么点击 < 会直接返回到浏览器页面
   // 所以需要判断一下是否存在本网站的历史记录
   if (history.state?.back) {

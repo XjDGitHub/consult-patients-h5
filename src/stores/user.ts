@@ -1,4 +1,4 @@
-import type { user } from '@/types/user'
+import type { User } from '@/types/user'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
@@ -6,9 +6,9 @@ export const useUserStore = defineStore(
   'user',
   () => {
     //   用户信息
-    const user = ref<user>()
+    const user = ref<User>()
     //   添加用户信息
-    const setUser = (u: user) => {
+    const setUser = (u: User) => {
       user.value = u
     }
     //   删除用户信息

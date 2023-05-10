@@ -1,3 +1,4 @@
+import { useUserStore } from '@/stores'
 import { createRouter, createWebHistory } from 'vue-router'
 
 // createRouter 创建路由实例，===> new VueRouter()
@@ -14,9 +15,51 @@ const router = createRouter({
   routes: [
     {
       path: '/login',
-      component: () => import('@/views/Login/index.vue')
+      component: () => import('@/views/Login/index.vue'),
+      meta: { title: '登录' }
+    },
+    {
+      path: '/',
+      component: () => import('@/views/Layout/index.vue'),
+      redirect: '/home',
+      children: [
+        {
+          path: '/user',
+          component: () => import('@/views/User/index.vue'),
+          meta: { title: '个人中心' }
+        },
+        {
+          path: '/home',
+          component: () => import('@/views/Home/index.vue'),
+          meta: { title: '首页' }
+        },
+        {
+          path: '/notify',
+          component: () => import('@/views/Notify/index.vue'),
+          meta: { title: '消息中心' }
+        },
+        {
+          path: '/article',
+          component: () => import('@/views/Article/index.vue'),
+          meta: { title: '健康百科' }
+        }
+      ]
+    },
+    {
+      path: '/user/patient',
+      component: () => import('@/views/User/PatientPage.vue'),
+      meta: { title: '家庭档案' }
     }
   ]
+})
+
+// 访问权限控制 即路由守卫
+// 和vue稍微不一样 to from netx(放行vue2) vue直接return true 拦截同一道理return '/地址'
+router.beforeEach((to) => {
+  document.title = `${to.meta.title}-优医问诊`
+  const whiteList = ['/login']
+  const store = useUserStore()
+  if (!store.user?.token && !whiteList.includes(to.path)) return '/login'
 })
 
 export default router
