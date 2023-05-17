@@ -2,7 +2,11 @@
 import { ref } from 'vue'
 import KnowledgeList from './components/KnowledgeList.vue'
 import followDoctor from './components/FollowDoctor.vue'
+import { useConsultStore } from '@/stores'
 
+import { ConsutlType } from '@/enums/index'
+// 导入极速问诊仓库
+const store = useConsultStore()
 const active = ref('recommend')
 </script>
 
@@ -26,7 +30,8 @@ const active = ref('recommend')
           </router-link>
         </van-col>
         <van-col span="8">
-          <router-link to="/consult/fast" class="nav">
+          <!-- 设置问诊类型 是极速问诊  -->
+          <router-link to="/consult/fast" class="nav" @click="store.setType(ConsutlType.Fast)">
             <cp-icon name="home-graphic"></cp-icon>
             <p class="title">极速问诊</p>
             <p class="desc">20s医生极速回复</p>
