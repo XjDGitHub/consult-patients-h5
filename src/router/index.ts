@@ -71,7 +71,7 @@ const router = createRouter({
       meta: { title: '问诊支付' }
     },
     {
-      path: '/rome',
+      path: '/room',
       component: () => import('@/views/Room/index.vue'),
       meta: { title: '问诊室' },
       beforeEnter(to) {
