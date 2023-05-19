@@ -33,9 +33,9 @@ const sendText = () => {
 const sendImage: UploaderAfterRead = async (data) => {
   if (Array.isArray(data)) return
   if (!data.file) return
-  const t = Toast.loading('正在上传')
+
   const res = await uploadImage(data.file)
-  t.clear()
+
   emit('sendImage', res.data)
 }
 </script>

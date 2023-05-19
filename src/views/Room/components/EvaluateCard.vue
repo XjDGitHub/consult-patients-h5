@@ -25,9 +25,10 @@ const onSubmit = async () => {
   if (!content.value) return showToast('请输入评价')
   if (!consult?.value) showToast('未找到订单')
   if (consult?.value.docInfo?.id) {
+    console.log(consult.value.orderId)
     await evaluateConsultOrder({
       docId: consult.value.docInfo?.id,
-      orderId: consult.value.orderId,
+      orderId: consult.value.id,
       score: score.value,
       anonymousFlag: anonymousFlag.value ? 1 : 0,
       content: content.value
@@ -55,7 +56,7 @@ const consult = inject<Ref<ConsultOrderItem>>('consult')
       void-color="rgba(0,0,0,0.04)"
     />
   </div>
-  <div class="evaluate-card">
+  <div class="evaluate-card" v-else>
     <p class="title">感谢您的评价</p>
     <p class="desc">本次在线问诊服务您还满意吗？</p>
     <van-rate

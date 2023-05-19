@@ -98,7 +98,8 @@ const consult = ref<ConsultOrderItem>()
 onMounted(async () => {
   const res = await getConsultOrderDetail(route.query.orderId as string)
   consult.value = res.data
-  console.log(res)
+  console.log(consult.value)
+  console.log(consult.value.status)
 })
 
 // 底部操作组件，可以输入文字，触发 send-text 事件传出文字
@@ -164,12 +165,13 @@ const completeEva = (score: number) => {
   }
 }
 provide('completeEva', completeEva)
+// console.log(consult.value.status)
 </script>
 
 <template>
   <div class="room-page">
     <cp-nav-bar title="医生问诊室" />
-    <room-status :status="consult?.status" :countDown="consult?.countDown" />
+    <room-status :status="consult.status" :countDown="consult?.countDown" />
     <room-action
       @sendText="sendText"
       @sendImage="sendImage"
