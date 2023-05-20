@@ -99,7 +99,7 @@ export type Image = {
   url: string
 }
 //问诊记录
-export type Consutl = {
+export type Consult = {
   /** 问诊记录ID */
   id: string
   /** 问诊类型 */
@@ -192,4 +192,15 @@ export type ConsultOrderItem = Consult & {
   pointDeduction: number
   /** 实付款 */
   actualPayment: number
+}
+
+export type ConsultOrderListParams = PageParams & {
+  /** 问诊记录类型 */
+  type: ConsultType
+}
+// 带分页问诊订单类型
+export type ConsultOrderPage = {
+  pageTotal: number
+  total: number
+  rows: ConsultOrderItem[]
 }

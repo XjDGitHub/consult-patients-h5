@@ -74,7 +74,7 @@ onMounted(() => {
   // 状态改变
   socket.on('statusChange', async () => {
     const res = await getConsultOrderDetail(route.query.orderId as string)
-    res.data = consult.value
+    consult.value = res.data
   })
   // 发过消息，从后台接收数据
   socket.on('receiveChatMsg', async (msg) => {
@@ -171,7 +171,7 @@ provide('completeEva', completeEva)
 <template>
   <div class="room-page">
     <cp-nav-bar title="医生问诊室" />
-    <room-status :status="consult.status" :countDown="consult?.countDown" />
+    <room-status :status="consult?.status" :countDown="consult?.countdown" />
     <room-action
       @sendText="sendText"
       @sendImage="sendImage"

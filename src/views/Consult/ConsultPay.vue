@@ -69,18 +69,18 @@ onBeforeRouteLeave(() => {
   if (orderId.value) return false
 })
 
-// 支付逻辑
-const pay = async () => {
-  if (paymentMethod.value === undefined) return showToast('请选择支付方式')
-  showLoadingToast({ message: '跳转支付', duration: 0 })
-  const res = await getConsultOrderPayUrl({
-    orderId: orderId.value,
-    paymentMethod: paymentMethod.value,
-    payCallback: 'http://localhost:5173/room'
-  })
-  console.log(res)
-  window.location.href = res.data.payUrl
-}
+// 支付逻辑 合并走了
+// const pay = async () => {
+//   if (paymentMethod.value === undefined) return showToast('请选择支付方式')
+//   showLoadingToast({ message: '跳转支付', duration: 0 })
+//   const res = await getConsultOrderPayUrl({
+//     orderId: orderId.value,
+//     paymentMethod: paymentMethod.value,
+//     payCallback: 'http://localhost:5173/room'
+//   })
+//   console.log(res)
+//   window.location.href = res.data.payUrl
+// }
 // 刷新页面，数据丢失，关在后提示
 type key = keyof PartialConsult
 onMounted(() => {
@@ -143,30 +143,12 @@ onMounted(() => {
       @click="submit"
       :loading="loading"
     />
-    <van-action-sheet
+    <CpPaySheet
       v-model:show="show"
-      title="选择支付方式"
-      :closeable="false"
-      :before-close="onColse"
-      :close-on-popstate="false"
-    >
-      <div class="pay-type">
-        <p class="amount">￥{{ payInfo.actualPayment.toFixed(2) }}</p>
-        <van-cell-group>
-          <van-cell title="微信支付" @click="paymentMethod = 0">
-            <template #icon><cp-icon name="consult-wechat" /></template>
-            <template #extra><van-checkbox :checked="paymentMethod === 0" /></template>
-          </van-cell>
-          <van-cell title="支付宝支付" @click="paymentMethod = 1">
-            <template #icon><cp-icon name="consult-alipay" /></template>
-            <template #extra><van-checkbox :checked="paymentMethod === 1" /></template>
-          </van-cell>
-        </van-cell-group>
-        <div class="btn">
-          <van-button type="primary" round block @click="pay">立即支付</van-button>
-        </div>
-      </div>
-    </van-action-sheet>
+      :order-id="orderId"
+      :actual-payment="payInfo.actualPayment"
+      :on-colse="onColse"
+    ></CpPaySheet>
   </div>
 </template>
 <style lang="scss" scoped>

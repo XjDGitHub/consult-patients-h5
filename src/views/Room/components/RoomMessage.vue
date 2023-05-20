@@ -7,6 +7,8 @@ import dayjs from 'dayjs'
 import { useUserStore } from '@/stores'
 import { getPrescriptionPic } from '@/services/consult'
 import EvaluateCard from './EvaluateCard.vue'
+import { useShowPrescription } from '@/composable'
+import { getIllnessTimeText, getConsultFlagText } from '@/utils/filiter'
 
 defineProps<{
   list: Message[]
@@ -21,21 +23,14 @@ const flagOptions = [
   { label: '就诊过', value: 0 },
   { label: '没就诊过', value: 1 }
 ]
-const getIllnessTimeText = (time: IllnessTime) =>
-  timeOptions.find((item) => item.value === time)?.label
-const getConsultFlagText = (flag: 0 | 1) => flagOptions.find((item) => item.value === flag)?.label
 const previewImg = (pictures?: Image[]) => {
   if (pictures && pictures.length) showImagePreview(pictures.map((item) => item.url))
 }
 // 格式化时间
 const formatTime = (time: string) => dayjs(time).format('HH:mm')
 const store = useUserStore()
-const showPrescription = async (id?: string) => {
-  if (id) {
-    const res = await getPrescriptionPic(id)
-    showImagePreview([res.data.url])
-  }
-}
+// 查看处方
+const { showPrescription } = useShowPrescription()
 </script>
 
 <template>
@@ -44,19 +39,19 @@ const showPrescription = async (id?: string) => {
     <div class="msg msg-illness" v-if="msgType === MsgType.CardPat">
       <div class="patient van-hairline--bottom">
         <p>
-          {{ msg.consultRecord.patientInfo.name }} {{ msg.consultRecord.patientInfo.genderValue
-          }}{{ msg.consultRecord.patientInfo.age }}岁
+          {{ msg.consultRecord?.patientInfo.name }} {{ msg.consultRecord?.patientInfo.genderValue
+          }}{{ msg.consultRecord?.patientInfo.age }}岁
         </p>
         <p>
-          {{ getIllnessTimeText(msg.consultRecord.illnessTime) }} |
-          {{ getConsultFlagText(msg.consultRecord.consultFlag) }}
+          {{ getIllnessTimeText(msg.consultRecord?.illnessTime) }} |
+          {{ getConsultFlagText(msg.consultRecord?.consultFlag) }}
         </p>
       </div>
       <van-row>
         <van-col span="6">病情描述</van-col>
-        <van-col span="18">{{ msg.consultRecord.illnessDesc }}</van-col>
+        <van-col span="18">{{ msg.consultRecord?.illnessDesc }}</van-col>
         <van-col span="6">图片</van-col>
-        <van-col span="18" @click="previewImg(msg.consultRecord.pictures)">点击查看</van-col>
+        <van-col span="18" @click="previewImg(msg.consultRecord?.pictures)">点击查看</van-col>
       </van-row>
     </div>
     <!-- 通知-通用 -->
