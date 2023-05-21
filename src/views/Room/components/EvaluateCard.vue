@@ -25,7 +25,6 @@ const onSubmit = async () => {
   if (!content.value) return showToast('请输入评价')
   if (!consult?.value) showToast('未找到订单')
   if (consult?.value.docInfo?.id) {
-    console.log(consult.value.orderId)
     await evaluateConsultOrder({
       docId: consult.value.docInfo?.id,
       orderId: consult.value.id,

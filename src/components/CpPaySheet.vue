@@ -8,6 +8,7 @@ const props = defineProps<{
   actualPayment: number
   orderId: string
   onColse?: () => void
+  payCallback: string
 }>()
 const emit = defineEmits<{
   (e: 'update:show', val: boolean): void
@@ -19,7 +20,7 @@ const pay = async () => {
   const res = await getConsultOrderPayUrl({
     orderId: props.orderId,
     paymentMethod: paymentMethod.value,
-    payCallback: 'http://localhost:5173/room'
+    payCallback: props.payCallback
   })
   console.log(res)
   window.location.href = res.data.payUrl
