@@ -18,7 +18,7 @@ const { order } = useOrderDetail(route.params.id as string)
           order.status === OrderType.MedicinePay ||
           order.status === OrderType.MedicineSend
         "
-        @click="$router.push(`/order/logistics/${order.id}`)"
+        @click="$router.push(`/order/logistics/${order?.id}`)"
       >
         <p class="area">
           <van-icon name="location" />

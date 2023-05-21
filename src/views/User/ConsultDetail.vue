@@ -97,13 +97,13 @@ const show = ref(false)
         <span>需付款</span>
         <span>￥{{ item.actualPayment }}</span>
       </div>
-      <van-button type="default" round :loading="loding" @click="cancelConsultOrder(item)"
+      <van-button type="default" round :loading="loding" @click="cancelConsultOrder(item!)"
         >取消问诊</van-button
       >
       <van-button type="primary" round @click="show = true">继续支付</van-button>
     </div>
     <div class="detail-action van-hairline--top" v-if="item.status === OrderType.ConsultWait">
-      <van-button type="default" round :loading="loding" @click="cancelConsultOrder(item)"
+      <van-button type="default" round :loading="loding" @click="cancelConsultOrder(item!)"
         >取消问诊</van-button
       >
       <van-button type="primary" round :to="`/room?orderId=${item.id}`"> 继续沟通 </van-button>
@@ -113,7 +113,7 @@ const show = ref(false)
         type="default"
         round
         v-if="item.prescriptionId"
-        @click="showPrescription(item.prescriptionId)"
+        @click="showPrescription(item?.prescriptionId)"
       >
         查看处方
       </van-button>
@@ -126,7 +126,7 @@ const show = ref(false)
       <van-button type="primary" round v-else> 写评价 </van-button>
     </div>
     <div class="detail-action van-hairline--top" v-if="item.status === OrderType.ConsultCancel">
-      <van-button type="default" round :loading="deleteLoading" @click="deleteConsultOrder(item)"
+      <van-button type="default" round :loading="deleteLoading" @click="deleteConsultOrder(item!)"
         >删除订单</van-button
       >
       <van-button type="primary" round to="/">咨询其他医生</van-button>
