@@ -148,7 +148,7 @@ onMounted(() => {
       :order-id="orderId"
       :actual-payment="payInfo.actualPayment"
       :on-colse="onColse"
-      pay-callback="http://localhost:5173"
+      pay-callback="/room"
     ></CpPaySheet>
   </div>
 </template>

@@ -113,7 +113,7 @@ const show = ref(false)
     </div>
     <CpPaySheet
       v-model:show="show"
-      pay-callback="http://localhost:5173/order/pay/result"
+      pay-callback="order/pay/result"
       :order-id="orderId"
       :actual-payment="orderPre.actualPayment"
     ></CpPaySheet>

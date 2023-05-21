@@ -107,6 +107,11 @@ const router = createRouter({
       path: '/order/logistics/:id',
       component: () => import('@/views/Order/OrderLogistics.vue'),
       meta: { title: '物流详情' }
+    },
+    {
+      path: '/login/callback',
+      component: () => import('@/views/Login/LoginCallback.vue'),
+      meta: { title: 'QQ登录-绑定手机' }
     }
   ]
 })
@@ -115,7 +120,7 @@ const router = createRouter({
 // 和vue稍微不一样 to from netx(放行vue2) vue直接return true 拦截同一道理return '/地址'
 router.beforeEach((to) => {
   document.title = `${to.meta.title}-优医问诊`
-  const whiteList = ['/login']
+  const whiteList = ['/login', '/login/callback']
   const store = useUserStore()
   if (!store.user?.token && !whiteList.includes(to.path)) return '/login'
 })

@@ -19,3 +19,6 @@ export const addPatient = (patient: Patient) => request('/patient/add', 'POST', 
 export const updatePatient = (patient: Patient) => request('/patient/update', 'PUT', patient)
 // 删除患者信息
 export const delPatient = (id: string) => request(`/patient/del/${id}`, 'DELETE')
+// 编写QQ登录API函数
+export const loginByQQ = (openId: string) =>
+  request<User>('/login/thirdparty', 'POST', { openId, source: 'qq' })

@@ -54,8 +54,11 @@
     <!-- 底部 -->
     <div class="login-other">
       <van-divider>第三方登录</van-divider>
+
       <div class="icon">
-        <img src="@/assets/qq.svg" alt="" />
+        <a :href="qqUrl">
+          <img src="@/assets/qq.svg" alt="" />
+        </a>
       </div>
     </div>
   </div>
@@ -64,7 +67,7 @@
 <script setup lang="ts">
 import { mobileRules, passwordRules, codeRules } from '@/utils/rules'
 import { showFailToast, showSuccessToast, showToast, type FormInstance } from 'vant'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { loginByPassword, sendMobileCode, loginByMobile } from '@/services/user'
 import { useUserStore } from '@/stores/user'
 import { useRoute, useRouter } from 'vue-router'
@@ -119,6 +122,10 @@ const send = async () => {
 onUnmounted(() => {
   clearInterval(timeId)
 })
+
+const qqUrl = `https://graph.qq.com/oauth2.0/authorize?client_id=102015968&response_type=token&scope=all&redirect_uri=${encodeURIComponent(
+  import.meta.env.VITE_APP_CALLBACK + '/login/callback'
+)}`
 </script>
 
 <style lang="scss" scoped>
