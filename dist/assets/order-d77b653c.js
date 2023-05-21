@@ -1,0 +1,1 @@
+import{r}from"./request-2770c0b0.js";const i=e=>r("/patient/medicine/order/pre","GET",e),d=()=>r("/patient/order/address","GET"),s=e=>r("/patient/medicine/order","POST",e),a=e=>r(`/patient/medicine/order/detail/${e}`,"GET"),c=e=>r(`/patient/order/${e}/logistics`);export{d as a,a as b,s as c,c as d,i as g};
